@@ -1,5 +1,5 @@
-import { CanvasStack } from "../utility/canvas-stack.js";
-import { lang } from "../../global-variables.js";
+
+import { lang } from "../../global-variables";
 
 export function loadImages(sources: any, callback: any) {
   var images = {};
@@ -24,17 +24,17 @@ export function loadingScreen(loading: boolean) {
   const loadingText = <HTMLElement>document.getElementById("loading_text");
   loadingText.style.display = "none";
   if (loading) {
-    loadingElement.style.display = "block";
-    new CanvasStack("canvas").bkgCanvas.layers.forEach((element) => {
-      const htmlElement = <HTMLElement>document.getElementById(element.id);
-      htmlElement.style.display = "none";
-    });
+    // loadingElement.style.display = "block";
+    // new CanvasStack("canvas").bkgCanvas.layers.forEach((element) => {
+    //   const htmlElement = <HTMLElement>document.getElementById(element.id);
+    //   htmlElement.style.display = "none";
+    // });
   } else {
     loadingElement.style.display = "none";
-    new CanvasStack("canvas").bkgCanvas.layers.forEach((element) => {
-      const htmlElement = <HTMLElement>document.getElementById(element.id);
-      htmlElement.style.display = "flex";
-    });
+    // new CanvasStack("canvas").bkgCanvas.layers.forEach((element) => {
+    //   const htmlElement = <HTMLElement>document.getElementById(element.id);
+    //   htmlElement.style.display = "flex";
+    // });
   }
 }
 export const MonsterLayer = "monsterCanvas";

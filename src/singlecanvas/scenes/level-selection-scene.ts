@@ -5,7 +5,6 @@ import { Game } from "../../scenes/game";
 import {
     ButtonClick,
     IntroMusic,
-    LevelSelectionLayer,
     PreviousPlayedLevel,
     GameScene1,
     loadImages

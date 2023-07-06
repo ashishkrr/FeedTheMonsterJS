@@ -130,6 +130,7 @@ export class SceneHandler {
             SceneHandler.SceneName = arg2;
         });
         SceneHandler.SceneName = LevelSelection1;
+        console.log(SceneHandler.SceneName, "<-------------")
     }
 
 }

@@ -1,33 +1,17 @@
 import {
     ButtonClick,
     FirebaseUserClicked,
-    FirebaseUserInstall,
-    loadingScreen,
-    MonsterLayer,
-    PlayButtonLayer,
     PWAInstallStatus,
-    StartSceneLayer,
-    UserCancelled,
     StartScene1,
-    LevelSelection1,
-    GameScene1,
     loadImages
 } from "../../common/common";
-// import { LevelIndicators } from "../components/level-indicator";
-// import { PromptText } from "../components/prompt-text"
-// import { Tutorial } from "../components/tutorial";
-// import { TimerTicking } from "../components/timer-ticking";
-// import PausePopUp from "../components/pause-popup"
-// import StoneHandler from "../components/stone-handler";
 import { StoneConfig } from "../common/stone-config"
 import Sound from "../../common/sound";
 import InstallButton from "../../components/buttons/install_button";
 import PlayButton from "../../singlecanvas/components/play-button";
 import { Monster } from "../components/monster";
 import { DataModal } from "../../data/data-modal";
-// import { CanvasStack } from "../../utility/canvas-stack";
-import { LevelSelectionScreen } from "../scenes/level-selection-scene";
-import { Debugger, lang } from "../../../global-variables";
+import { Debugger } from "../../../global-variables";
 // var this: any;
 let lastTime = 0;
 let pwa_install_status: any;
@@ -75,7 +59,7 @@ export class StartScene {
         canvas: HTMLCanvasElement,
         data: DataModal,
         firebase_analytics: { logEvent: any },
-        switchSceneToLevelSelection
+        switchSceneToLevelSelection?
     ) {
         // this = this;
         this.canvas = canvas;
@@ -111,7 +95,6 @@ export class StartScene {
         this.createPlayButton();
         this.firebase_analytics = firebase_analytics;
         StartScene.SceneName = StartScene1;
-
         this.animation(0);
 
         this.images = {
@@ -191,9 +174,10 @@ export class StartScene {
                 this.context.fillText(this.data.title, this.width * 0.5, this.height / 10);
                 // this.update(deltaTime);
                 // this.context.scale(1.5, 1.5);
-                this.monster.animation(deltaTime);
                 // this.context.setTransform(1, 0, 0, 0, 0, 0);
                 this.playButton.draw();
+
+                this.monster.animation(deltaTime);
                 // this.stoneHandler.draw();
                 // if (this.stoneConfig != undefined)
                 //     this.stoneConfig.draw();

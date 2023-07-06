@@ -1,5 +1,5 @@
 import { Debugger, lang } from "../../../global-variables";
-import { MonsterLayer, StoreMonsterPhaseNumber, loadImages } from "../../common/common";
+import { StoreMonsterPhaseNumber, loadImages } from "../../common/common";
 import { CanvasStack } from "../../utility/canvas-stack";
 var lastTime = 0;
 var self;
@@ -49,7 +49,6 @@ export class Monster {
         this.countFrame = 0;
         this.frameInterval = 1000 / this.fps;
         this.frameTimer = 0;
-        this.canvasStack = new CanvasStack("canvas");
 
         //////////loading images
         this.images = {
@@ -73,8 +72,8 @@ export class Monster {
     }
 
     deleteCanvas() {
-        cancelAnimationFrame(animationFrame);
-        this.canvasStack.deleteLayer(this.id);
+        // cancelAnimationFrame(animationFrame);
+        // this.canvasStack.deleteLayer(this.id);
     }
 
     update(deltaTime) {
@@ -110,7 +109,7 @@ export class Monster {
     }
 
     changeImage(src) {
-        this.animation(0);
+        // this.animation(0);
         // if (this.frameY == 1) {
         //   this.frameY = 0;
         // } else {

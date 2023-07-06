@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/curiouslearning/FeedTheMonsterJS#readme",
   "dependencies": {
-    "ts-loader": "^9.4.1",
     "@capacitor/android": "^4.4.0",
     "@capacitor/core": "^4.4.0",
     "@sentry/browser": "^7.47.0",
@@ -27,6 +26,7 @@
     "fluent-ffmpeg": "^2.1.2",
     "howler": "^2.2.3",
     "node-fetch": "^3.3.1",
+    "ts-loader": "^9.4.1",
     "webpack": "^5.74.0",
     "workbox-cli": "^6.5.4",
     "workbox-window": "^4.3.1"
