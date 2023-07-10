@@ -121,7 +121,7 @@ function handleServiceWorkerMessage(event): void {
 function handleLoadingMessage(data): void {
   document.getElementById("loading_number").innerHTML =
     " " + " downloading... " + data.data + "%";
-  if (data.data % 100 == 0) {
+  if (data.data >= 100) {
     is_cached.set(lang, "true");
     localStorage.setItem(
       IsCached,

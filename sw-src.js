@@ -57,20 +57,20 @@ async function cacheAudiosFiles(file, cacheName, length) {
       .add(
         self.location.href.includes("https://feedthemonsterdev.curiouscontent.org")
           ? file.slice(
-              0,
-              file.indexOf("/feedthemonster") + "/feedthemonster".length
-            ) +
-              "dev" +
-              file.slice(
-                file.indexOf("/feedthemonster") + "/feedthemonster".length
-              )
+            0,
+            file.indexOf("/feedthemonster") + "/feedthemonster".length
+          ) +
+          "dev" +
+          file.slice(
+            file.indexOf("/feedthemonster") + "/feedthemonster".length
+          )
           : file
       )
       .finally(() => {
         number = number + 1;
         self.clients.matchAll().then((clients) => {
           clients.forEach((client) => {
-            if ((number / (length * 5)) * 100 < 101) {
+            if ((number / (length * 5)) * 100 < 100) {
               client.postMessage({
                 msg: "Loading",
                 data: Math.round((number / (length * 5)) * 100),
@@ -93,7 +93,7 @@ function cacheLangAssets(file, cacheName) {
 }
 async function getCacheName(language) {
   ///awt
- await caches.keys().then((cacheNames) => {
+  await caches.keys().then((cacheNames) => {
     cacheNames.forEach(async (cacheName) => {
       await getALLAudioUrls(cacheName, language);
     });
@@ -111,7 +111,7 @@ async function getALLAudioUrls(cacheName, language) {
     res.json().then((data) => {
       for (var i = 0; i < data.Levels.length; i++) {
         data.Levels[i].Puzzles.forEach(async (element) => {
-         await cacheAudiosFiles(
+          await cacheAudiosFiles(
             element.prompt.PromptAudio,
             workbox.core.cacheNames.precache + language,
             data.Levels.length
