@@ -3,7 +3,7 @@ import { LevelSelectionScreen } from "./src/scenes/level-selection-scene";
 import { getData } from "./src/data/api-data";
 import { DataModal } from "./src/data/data-modal";
 import { StartScene } from "./src/singlecanvas/scenes/start-scene";
-import { SceneHandler } from "./src/singlecanvas/sceneHandler/scene-handler"
+import { SceneHandler } from "./src/singlecanvas/sceneHandler/scene-handler";
 import { CanvasStack } from "./src/utility/canvas-stack";
 import { firebaseConfig } from "./src/firebase/firebase_config";
 import {
@@ -18,7 +18,6 @@ import { FirebaseIntegration } from "./src/firebase/firebase_integration";
 declare const window: any;
 declare const app: any;
 let jsonData;
-
 declare global {
   var descriptionText: string;
 }
