@@ -130,6 +130,53 @@ export class TimerTicking extends EventManager {
     this.timer = 0;
   }
 
+  readyTimer() {
+    // make timer look full so as it get start signal..... it will start decreasing
+    this.timer = 0;
+  }
+  update(deltaTime) {
+    if (this.startMyTimer && !this.isStoneDropped) {
+      this.timer += deltaTime * 0.008;
+    }
+    if (
+      this.width * 0.87 - this.width * 0.87 * this.timer * 0.01 < 0 &&
+      !this.isMyTimerOver
+    ) {
+      this.isMyTimerOver = true;
+      this.callback();
+    }
+  }
+
+  draw() {
+    if (this.imagesLoaded) {
+      this.context.drawImage(
+        this.loadedImages.timer_empty,
+        0,
+        this.height * 0.1,
+        this.width,
+        this.height * 0.05
+      );
+      this.context.drawImage(
+        this.loadedImages.rotating_clock,
+        5,
+        this.height * 0.09,
+        this.width * 0.12,
+        this.height * 0.06
+      );
+      this.context.drawImage(
+        this.loadedImages.timer_full,
+        0,
+        0,
+        this.timerWidth - this.timerWidth * this.timer * 0.01,
+        this.timerHeight,
+        this.width * 0.14,
+        this.height * 0.099,
+        this.width * 0.87 - this.width * 0.87 * this.timer * 0.01,
+        this.height * 0.05
+      );
+    }
+  }
+
   public handleStoneDrop(event) {
     this.isStoneDropped = true;
   }

@@ -1,3 +1,5 @@
+import { Tutorial } from "../components/tutorial";
+
 export class StoneConfig {
     public x: number;
     public y: number;
@@ -13,18 +15,19 @@ export class StoneConfig {
     public imageCenterOffsetX: number;
     public imageCenterOffsetY: number;
     public context: CanvasRenderingContext2D;
+    public tutorialInstance: Tutorial;
 
     public frame: any = 0;
 
-    constructor(context, canvasWidth, canvasHeight, stoneLetter, xPos, yPos, img) {
+    constructor(context, canvasWidth, canvasHeight, stoneLetter, xPos, yPos, img,tutorialInstance?) {
         this.x = xPos;
         this.y = yPos;
         this.origx = xPos;
         this.origy = yPos;
+         // this.drawready = false;
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
-
-        // this.drawready = false;
+        this.tutorialInstance = tutorialInstance;
         this.text = stoneLetter;
         this.img = img;
         this.context = context;
@@ -56,7 +59,11 @@ export class StoneConfig {
 
 
     getX = () => {
-        // this.x is the final stone position
+        if (this.frame >= 100) {
+            // Animation has ended, return the final stone position
+            return this.x;
+        }
+    
         let distance = this.x - 0;
         let steps = 100;
         let currentProgress = this.frame;
@@ -64,17 +71,31 @@ export class StoneConfig {
     }
 
     getY = () => {
+        if (this.frame >= 100) {
+            // Animation has ended, return the final stone position
+            return this.y;
+        }
+    
         let distance = this.y - 0;
         let steps = 100;
         let currentProgress = this.frame;
         return this.getEase(currentProgress, 0, distance, steps);
     }
 
-    draw() {
+    draw(deltaTime) {
+        if (this.frame < 100) {
+            this.frame = this.frame + 1;
+        }
+        else{
+            if(this.tutorialInstance!=null || this.tutorialInstance!=undefined)
+            {
+                this.tutorialInstance.draw(deltaTime);
+            }
+        }
         this.context.drawImage(
             this.img,
-            this.x - this.imageCenterOffsetX,
-            this.y - this.imageCenterOffsetY,
+            this.getX() - this.imageCenterOffsetX,
+            this.getY()- this.imageCenterOffsetY,
             this.imageSize,
             this.imageSize
         );
@@ -84,13 +105,14 @@ export class StoneConfig {
         this.context.fillStyle = "white";
         this.context.font = this.textFontSize + "px Arial";
         this.context.textAlign = "center";
-        this.context.fillText(this.text, this.x, this.y);
+        this.context.fillText(this.text, this.getX(), this.getY());
     }
 
     update() {
         // update stone apearing animation
-        if (this.frame < 100) {
-            this.frame = this.frame + 1;
-        }
+        // if (this.frame < 100) {
+        //     this.frame = this.frame + 1;
+        // }
+       
     }
 }
