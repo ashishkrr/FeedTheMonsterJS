@@ -75,6 +75,7 @@ function dataPushToArray(jsonData, profileData) {
   return jsonData;
 }
 export function getDatafromStorage() {
+  console.log("hihhhhh")
   const data = Debugger.DebugMode
     ? JSON.parse(localStorage.getItem(lang + "ProfileDebug") || "{}")
     : JSON.parse(localStorage.getItem(lang + "Profile") || "{}");
