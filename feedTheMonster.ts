@@ -50,7 +50,7 @@ window.addEventListener("load", async function () {
   // }
   globalThis.aboutCompany = data.aboutCompany;
   globalThis.descriptionText = data.descriptionText;
-  console.log("wt")
+  console.log("wtttt")
   window.addEventListener("resize", async () => {
     if (is_cached.has(lang)) {
       Debugger.DevelopmentLink
