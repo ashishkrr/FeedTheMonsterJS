@@ -1,4 +1,4 @@
-import { Debugger, lang } from "../../global-variables.js";
+import { Debugger, lang } from "../../global-variables";
 
 export class ProfileData {
   public levelName: string;
@@ -75,7 +75,6 @@ function dataPushToArray(jsonData, profileData) {
   return jsonData;
 }
 export function getDatafromStorage() {
-  console.log("hihhhhh")
   const data = Debugger.DebugMode
     ? JSON.parse(localStorage.getItem(lang + "ProfileDebug") || "{}")
     : JSON.parse(localStorage.getItem(lang + "Profile") || "{}");

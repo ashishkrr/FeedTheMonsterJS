@@ -1,19 +1,20 @@
 import * as Sentry from "@sentry/browser";
-import { LevelSelectionScreen } from "./src/scenes/level-selection-scene.js";
-import { getData } from "./src/data/api-data.js";
-import { DataModal } from "./src/data/data-modal.js";
-import { StartScene } from "./src/scenes/start-scene.js";
-import { CanvasStack } from "./src/utility/canvas-stack.js";
-import { firebaseConfig } from "./src/firebase/firebase_config.js";
+import { LevelSelectionScreen } from "./src/scenes/level-selection-scene";
+import { getData } from "./src/data/api-data";
+import { DataModal } from "./src/data/data-modal";
+import { StartScene } from "./src/singlecanvas/scenes/start-scene";
+import { SceneHandler } from "./src/singlecanvas/sceneHandler/scene-handler"
+import { CanvasStack } from "./src/utility/canvas-stack";
+import { firebaseConfig } from "./src/firebase/firebase_config";
 import {
   getDatafromStorage,
   ProfileData,
   setDataToStorage,
-} from "./src/data/profile-data.js";
-import { IsCached, PWAInstallStatus } from "./src/common/common.js";
+} from "./src/data/profile-data";
+import { IsCached, PWAInstallStatus } from "./src/common/common";
 import { Workbox } from "workbox-window";
-import { Debugger, lang } from "./global-variables.js";
-import { FirebaseIntegration } from "./src/firebase/firebase_integration.js";
+import { Debugger, lang } from "./global-variables";
+import { FirebaseIntegration } from "./src/firebase/firebase_integration";
 declare const window: any;
 declare const app: any;
 let jsonData;
@@ -50,7 +51,7 @@ window.addEventListener("load", async function () {
   // }
   globalThis.aboutCompany = data.aboutCompany;
   globalThis.descriptionText = data.descriptionText;
-  console.log("wtttt")
+
   window.addEventListener("resize", async () => {
     if (is_cached.has(lang)) {
       Debugger.DevelopmentLink
@@ -63,8 +64,8 @@ window.addEventListener("load", async function () {
       canvas.width = window.screen.width > 420 ? 420 : window.innerWidth;
       delete this.monster;
       new CanvasStack("canvas").deleteAllLayers();
-      delete this.startScene;
-      this.startScene = new StartScene(canvas, d, this.analytics);
+      delete this.sceneHandler;
+      this.sceneHandler = new SceneHandler(canvas, d, this.analytics);
       passingDataToContainer();
     }
   });
@@ -75,7 +76,7 @@ window.addEventListener("load", async function () {
     Debugger.DevelopmentLink
       ? (document.getElementById("toggle-btn").style.display = "block")
       : null;
-    this.startScene = new StartScene(canvas, d, this.analytics);
+    this.sceneHandler = new SceneHandler(canvas, d, this.analytics);
     passingDataToContainer();
   }
 });
@@ -91,7 +92,8 @@ Sentry.init({
 async function registerWorkbox(): Promise<void> {
   if ("serviceWorker" in navigator) {
     let wb = new Workbox("./sw.js", {});
-    await wb.register().then(handleServiceWorkerRegistration);
+    await wb.register();
+    await navigator.serviceWorker.ready;
     if (!is_cached.has(lang)) {
       await channel.postMessage({ command: "Cache", data: lang });
     }
@@ -101,6 +103,9 @@ async function registerWorkbox(): Promise<void> {
     );
   }
 }
+
+channel.addEventListener('message',handleServiceWorkerMessage)
+
 function handleServiceWorkerRegistration(registration): void {
   if (registration.installing) {
     registration.installing.postMessage({
