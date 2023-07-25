@@ -9,7 +9,7 @@ const accessToken = process.env.ACCESS_TOKEN;
 const owner = process.env.REPO_OWNER;
 const repo = process.env.REPO;
 const branch = process.env.BRANCH_NAME;
-const repoPath = dirname(require.main.filename) + process.env.CLONE_REPO_PATH;
+const repoPath = dirname(require.main.filename) + process.env.REPO_PATH;
 const repositoryUrl = process.env.REPO_URL;
 
 const octokit = new Octokit({
