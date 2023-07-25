@@ -101,7 +101,7 @@ async function commitAndPushChanges(filePaths) {
     ref: `heads/${branch}`,
     sha: commitData.sha,
   });
-
+  console.log("changes has commited successfully");
   await discardAllChanges();
 }
 
@@ -110,7 +110,7 @@ async function discardAllChanges() {
 
   try {
     await git.reset('hard', ['HEAD']);
-    console.log("All file changes discarded successfully.");
+    // console.log("All file changes discarded successfully.");
     await updateCurrentBranch();
   } catch (error) {
     console.error("Error occurred while discarding changes:", error);
