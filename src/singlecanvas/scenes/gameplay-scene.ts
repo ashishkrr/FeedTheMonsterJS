@@ -594,7 +594,8 @@ export class GameplayScene {
       self.monster.changeToDragAnimation();
       self.pickedStone.x = x;
       self.pickedStone.y = y;
-    }
+    } 
+    // hwello
   };
 
   handleMouseClick = (event) => {
