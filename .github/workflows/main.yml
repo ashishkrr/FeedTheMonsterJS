@@ -1,0 +1,45 @@
+name: Build and Commit Workflow
+
+on: 
+  workflow_dispatch: # This allows manual triggering of the workflow
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18' # Choose the appropriate Node.js version
+        
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Run build in background
+      run: npm run dev &
+      
+    - name: Wait for build to complete
+      run: wait $!
+      
+    - name: Run Workbox injectManifest
+      run: npx workbox injectManifest
+      continue-on-error: true # Continue even if this step fails
+      
+    - name: Configure Git
+      run: |
+        git config --global user.name "ashish kumar"
+        git config --global user.email "aswaraj27@gmail.com"
+        
+    - name: Commit changes
+      run: |
+        git add .
+        git commit -m "Auto-commit: Build and Workbox update"
+        
+    - name: Push changes
+      uses: ad-m/github-push-action@develop
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }} # Automatically generated token
