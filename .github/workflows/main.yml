@@ -40,6 +40,5 @@ jobs:
         git commit -m "Auto-commit: Build and Workbox update"
         
     - name: Push changes
-      uses: ad-m/github-push-action@develop
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }} # Automatically generated token
+      run: git push origin develop
+      
