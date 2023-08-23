@@ -24,6 +24,7 @@ jobs:
       
     - name: Run Workbox injectManifest
       run: npx workbox injectManifest
+      continue-on-error: true
 
     - name: Configure Git
       run: |
