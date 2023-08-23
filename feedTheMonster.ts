@@ -32,7 +32,7 @@ window.addEventListener("beforeunload", (event) => {
 });
 window.addEventListener("load", async function () {
   registerWorkbox();
-  console.log("jsjsjsjs");
+  console.log("jsjsjsjs RKS");
   const canvas: any = <HTMLElement>document.getElementById("canvas");
   const versionInfoElement = document.getElementById("version-info-id");
   canvas.height = window.innerHeight;
